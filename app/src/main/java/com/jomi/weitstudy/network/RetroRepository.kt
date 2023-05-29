@@ -9,14 +9,14 @@ import javax.inject.Inject
 
 class RetroRepository @Inject constructor(private val naverShopService : NaverShopService){
 
-    fun makeApiCall(liveDataList: MutableLiveData<List<Item>>){
+    fun makeApiCall(liveDataList: MutableLiveData<List<NaverShopItem>>){
         val call: Call<NaverShopResponse> = naverShopService.getSearchShop("1x2aTgZVkK7svKJMvV3Y", "omjUXekf98", "가방")
         call?.enqueue(object : Callback<NaverShopResponse>{
             override fun onResponse(
                 call: Call<NaverShopResponse>,
                 response: Response<NaverShopResponse>
             ) {
-                liveDataList.postValue(response.body()?.items!! as List<Item>?)
+                liveDataList.postValue(response.body()?.items!! as List<NaverShopItem>?)
             }
 
             override fun onFailure(call: Call<NaverShopResponse>, t: Throwable) {

@@ -7,7 +7,7 @@ data class NaverShopResponse(
     @field:Json(name = "display")
     val display: Int?,
     @field:Json(name = "items")
-    val items: List<Item?>?,
+    val items: List<NaverShopItem?>?,
     @field:Json(name = "lastBuildDate")
     val lastBuildDate: String?,
     @field:Json(name = "start")
@@ -17,7 +17,7 @@ data class NaverShopResponse(
 )
 
 // recyclerData
-data class Item(
+data class NaverShopItem(
     @field:Json(name = "brand")
     val brand: String?,
     @field:Json(name = "category1")

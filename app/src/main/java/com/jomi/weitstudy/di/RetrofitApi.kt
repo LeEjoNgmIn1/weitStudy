@@ -17,19 +17,21 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RetrofitApi {
 
-    const val BASE_URL = "https://openapi.naver.com/"
+    private const val BASE_URL = "https://openapi.naver.com/"
 
-    private val okHttpClient: OkHttpClient by lazy{
-        OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
-            .build()
+    @Singleton
+    @Provides
+    fun okHttpClient() : OkHttpClient{
+        return OkHttpClient.Builder()
+                .addInterceptor(HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                 })
+                .build()
     }
 
     @Singleton
     @Provides
-    fun getRetroInstance(): Retrofit{
+    fun getRetroInstance(okHttpClient: OkHttpClient): Retrofit{
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
@@ -39,8 +41,8 @@ object RetrofitApi {
 
     @Singleton
     @Provides
-    fun getRetroServiceInstance(retrofit: Retrofit): NaverShopService{
-        return getRetroInstance().create(NaverShopService::class.java)
+    fun getNaverShopService(retrofit: Retrofit): NaverShopService{
+        return retrofit.create(NaverShopService::class.java)
     }
 
 }
