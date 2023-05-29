@@ -39,9 +39,9 @@ class ShopAdapter: ListAdapter<Item, ShopAdapter.ShopViewHolder>(DiffCallback) {
         val itemImage = view.ivShopItemList
 
         fun bind(data: Item){
-            itemTitle.text = data.title
-            itemMalName.text = data.mallName
-            itemLprice.text = data.lprice
+            itemTitle.text = "상품명 : " + data.title
+            itemMalName.text = "쇼핑몰 : " + data.mallName
+            itemLprice.text = "최저가 : " + data.lprice + "원"
 
             Glide.with(itemImage)
                 .load(data.image)
