@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel(){
-        val viewModel: MainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+        val viewModel: MainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         viewModel.getLiveDataObserver().observe(this, Observer{
 
             if(it != null){
