@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">weItStudy</string>
+    <string name="x_naver_client_id">q9cgkmAmZwHdc_uSyAaf</string>
+    <string name="x_naver_client_secret">3jBNB_AVJo</string>
 </resources>
