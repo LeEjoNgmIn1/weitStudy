@@ -35,13 +35,15 @@ class MainViewModel @ViewModelInject constructor(
         getNews()
     }
 
-    private fun getNews() = viewModelScope.launch {
-        _res.postValue(Resource.loading(null))
-        mainRepository.getNews().let {
-            if(it.isSuccessful){
-                _res.postValue(Resource.success(it.body()))
-            } else {
-                _res.postValue(Resource.error(it.errorBody().toString(), null))
+    private fun getNews() {
+        viewModelScope.launch {
+            _res.postValue(Resource.loading(null))
+            mainRepository.getNews().let {
+                if(it.isSuccessful){
+                    _res.postValue(Resource.success(it.body()))
+                } else {
+                    _res.postValue(Resource.error(it.errorBody().toString(), null))
+                }
             }
         }
     }
