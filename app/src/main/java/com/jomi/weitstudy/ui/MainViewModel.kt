@@ -1,4 +1,4 @@
-package com.jomi.weitstudy
+package com.jomi.weitstudy.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
