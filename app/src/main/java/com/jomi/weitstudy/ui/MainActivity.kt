@@ -51,6 +51,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        viewModel.loadListData(display)
+        
     }
 }

@@ -11,22 +11,22 @@ import javax.inject.Inject
 
 class RetroRepository @Inject constructor(private val naverShopService : NaverShopService){
 
-    fun makeApiCall(query:String, display: Int, start: Int, liveDataList: MutableLiveData<List<NaverShopItem>>){
-        val call: Call<NaverShopResponse> = naverShopService.getSearchShop(query, display, start)
-        call?.enqueue(object : Callback<NaverShopResponse>{
-            override fun onResponse(
-                call: Call<NaverShopResponse>,
-                response: Response<NaverShopResponse>
-            ) {
-                liveDataList.postValue(response.body()?.items!! as List<NaverShopItem>?)
-            }
-
-            override fun onFailure(call: Call<NaverShopResponse>, t: Throwable) {
-                Log.d("Tag", t.message.toString())
-                liveDataList.postValue(null)
-            }
-        })
-    }
+//    fun makeApiCall(query:String, display: Int, start: Int, liveDataList: MutableLiveData<List<NaverShopItem>>){
+//        val call: Call<NaverShopResponse> = naverShopService.getSearchShop(query, display, start)
+//        call?.enqueue(object : Callback<NaverShopResponse>{
+//            override fun onResponse(
+//                call: Call<NaverShopResponse>,
+//                response: Response<NaverShopResponse>
+//            ) {
+//                liveDataList.postValue(response.body()?.items!! as List<NaverShopItem>?)
+//            }
+//
+//            override fun onFailure(call: Call<NaverShopResponse>, t: Throwable) {
+//                Log.d("Tag", t.message.toString())
+//                liveDataList.postValue(null)
+//            }
+//        })
+//    }
 }
 
 
