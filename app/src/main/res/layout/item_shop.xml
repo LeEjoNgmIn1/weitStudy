@@ -11,7 +11,7 @@
         android:padding="5dp"
         tools:ignore="MissingConstraints">
         <ImageView
-            android:id="@+id/ivShopItemList"
+            android:id="@+id/iv_shop_itemList"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="100dp"
@@ -24,19 +24,19 @@
             android:orientation="vertical"
             android:padding="5dp">
             <TextView
-                android:id="@+id/tvShopTitle"
+                android:id="@+id/tv_shop_title"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="0dp"
                 android:text="상품명 : "/>
             <TextView
-                android:id="@+id/tvShopMallName"
+                android:id="@+id/tv_shop_mall_name"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="0dp"
                 android:text="쇼핑몰 : "/>
             <TextView
-                android:id="@+id/tvShopLprice"
+                android:id="@+id/tvShop_lprice"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="0dp"

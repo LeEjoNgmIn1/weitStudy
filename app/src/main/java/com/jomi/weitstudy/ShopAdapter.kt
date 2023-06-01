@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jomi.weitstudy.databinding.ItemShopBinding
-import com.jomi.weitstudy.network.NaverShopItem
-import kotlinx.android.synthetic.main.item_shop.view.*
+import com.jomi.weitstudy.network.model.NaverShopItem
 
 class ShopAdapter: ListAdapter<NaverShopItem, ShopAdapter.ShopViewHolder>(DiffCallback) {
 

@@ -1,6 +1,5 @@
 package com.jomi.weitstudy.di
 
-import com.jomi.weitstudy.network.NaverShopResponse
 import com.jomi.weitstudy.network.NaverShopService
 import dagger.Module
 import dagger.Provides
@@ -10,7 +9,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -41,7 +39,7 @@ object RetrofitApi {
 
     @Singleton
     @Provides
-    fun getNaverShopService(retrofit: Retrofit): NaverShopService{
+    fun getNaverShopService(retrofit: Retrofit): NaverShopService {
         return retrofit.create(NaverShopService::class.java)
     }
 
