@@ -29,6 +29,10 @@ class MainActivity : AppCompatActivity() {
         initRecycleView()
 
         btn_get.setOnClickListener {
+            initViewModel()
+        }
+
+        refresh_layout.setOnRefreshListener {
             display += 10
             initViewModel()
         }

@@ -21,7 +21,7 @@ class ShopAdapter: ListAdapter<NaverShopItem, NaverShopViewHolder>(DiffCallback)
     companion object{
         private val DiffCallback = object: DiffUtil.ItemCallback<NaverShopItem>() {
             override fun areItemsTheSame(oldItem: NaverShopItem, newItem: NaverShopItem): Boolean {
-                return oldItem.productId == newItem.productId
+                return oldItem.productId === newItem.productId
             }
 
             override fun areContentsTheSame(oldItem: NaverShopItem, newItem: NaverShopItem): Boolean {
