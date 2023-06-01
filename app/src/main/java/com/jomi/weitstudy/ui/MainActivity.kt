@@ -7,13 +7,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jomi.weitstudy.R
+import com.jomi.weitstudy.databinding.ActivityMainBinding
 import com.jomi.weitstudy.ui.naverShopAdapter.ShopAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 
 // NaverShop Branch
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    lateinit var binding : ActivityMainBinding
 
     private var display = 0
     private val myRecyclerViewAdapter : ShopAdapter = ShopAdapter()
@@ -24,23 +26,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initRecycleView()
 
-        btn_get.setOnClickListener {
-            initViewModel()
-        }
-
-        refresh_layout.setOnRefreshListener {
+        binding.btnGet.setOnClickListener {
             display += 10
             initViewModel()
         }
 
+        binding.refreshLayout.setOnRefreshListener {
+//            display += 10
+//            initViewModel()
+        }
+
     }
     private fun initRecycleView() {
-        recycler_view.layoutManager = GridLayoutManager(this, 2)
-        recycler_view.adapter = myRecyclerViewAdapter
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
+        binding.recyclerView.adapter = myRecyclerViewAdapter
         viewModel.naverShopResult .observe(this){
             if (it != null) {
                 myRecyclerViewAdapter.submitList(it)
@@ -51,6 +55,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        
+        viewModel.searchNaverShop(display)
     }
 }

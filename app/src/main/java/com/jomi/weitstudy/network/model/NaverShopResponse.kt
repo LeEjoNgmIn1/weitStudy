@@ -3,7 +3,6 @@ package com.jomi.weitstudy.network.model
 import com.jomi.weitstudy.network.model.NaverShopItem
 import com.squareup.moshi.Json
 
-// recyclerList
 data class NaverShopResponse(
     @field:Json(name = "display")
     val display: Int,
@@ -17,4 +16,3 @@ data class NaverShopResponse(
     val total: Int
 )
 
-// recyclerData

@@ -1,15 +1,12 @@
 package com.jomi.weitstudy.network
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import com.jomi.weitstudy.network.model.NaverShopItem
-import com.jomi.weitstudy.network.model.NaverShopResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
-class RetroRepository @Inject constructor(private val naverShopService : NaverShopService){
+class NaverShopRepository @Inject constructor(private val naverShopService : NaverShopService){
+
+    suspend fun naverShopSearch(query: String, display: Int, start: Int) =
+        naverShopService.getSearchShop(query, display, start)
+
 
 //    fun makeApiCall(query:String, display: Int, start: Int, liveDataList: MutableLiveData<List<NaverShopItem>>){
 //        val call: Call<NaverShopResponse> = naverShopService.getSearchShop(query, display, start)
