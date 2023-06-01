@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jomi.weitstudy.R
+import com.jomi.weitstudy.ui.naverShopAdapter.ShopAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -13,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private var display = 0
     private val myRecyclerViewAdapter : ShopAdapter = ShopAdapter()
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
@@ -26,14 +29,15 @@ class MainActivity : AppCompatActivity() {
         initRecycleView()
 
         btn_get.setOnClickListener {
+            display += 10
             initViewModel()
         }
 
     }
     private fun initRecycleView() {
-        recycler_view.layoutManager = LinearLayoutManager(this)
+        recycler_view.layoutManager = GridLayoutManager(this, 2)
         recycler_view.adapter = myRecyclerViewAdapter
-        viewModel.naverShopLiveData.observe(this){
+        viewModel.naverShopResult .observe(this){
             if (it != null) {
                 myRecyclerViewAdapter.submitList(it)
             } else {
@@ -43,6 +47,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        viewModel.loadListData()
+        viewModel.loadListData(display)
     }
 }

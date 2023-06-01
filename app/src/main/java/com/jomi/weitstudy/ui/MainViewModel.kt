@@ -11,12 +11,12 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: RetroRepository ) : ViewModel() {
 
-    private val naverShopList : MutableLiveData<List<NaverShopItem>> = MutableLiveData()
+    private val _naverShopResult : MutableLiveData<List<NaverShopItem>> = MutableLiveData()
 
-    val naverShopLiveData : LiveData<List<NaverShopItem>> = naverShopList
+    val naverShopResult : LiveData<List<NaverShopItem>> = _naverShopResult
 
 
-    fun loadListData() {
-        repository.makeApiCall("가방", 10, 1, naverShopList)
+    fun loadListData(display: Int = 10) {
+        repository.makeApiCall("가방", display, 1, _naverShopResult)
     }
 }
