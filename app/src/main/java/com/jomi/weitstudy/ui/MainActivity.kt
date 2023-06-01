@@ -32,13 +32,13 @@ class MainActivity : AppCompatActivity() {
         initRecycleView()
 
         binding.btnGet.setOnClickListener {
-            display += 10
             initViewModel()
         }
 
         binding.refreshLayout.setOnRefreshListener {
-//            display += 10
-//            initViewModel()
+            display += 10
+            initViewModel()
+            binding.refreshLayout.setRefreshing(false)
         }
 
     }

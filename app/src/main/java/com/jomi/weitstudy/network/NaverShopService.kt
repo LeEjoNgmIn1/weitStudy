@@ -15,7 +15,7 @@ interface NaverShopService {
         "X-Naver-Client-Secret: $CLIENT_SECRET"
     )
     @GET("v1/search/shop.json")
-    fun getSearchShop(
+    suspend fun getSearchShop(
         @Query("query") query: String,
         @Query("display") display: Int? = null,
         @Query("start") start: Int? = null
