@@ -10,6 +10,7 @@ import com.jomi.weitstudy.network.model.NaverShopItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,6 +26,8 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
             response.body()?.items?.let { body ->
                 _naverShopResult.postValue(body as List<NaverShopItem>?)
             }
+        } else {
+            Timber.e("Test -> ${response.body()?.items}")
         }
     }
 }
