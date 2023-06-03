@@ -32,12 +32,12 @@ class MainActivity : AppCompatActivity() {
         initRecycleView()
 
         binding.btnGet.setOnClickListener {
-            initViewModel()
+            initNaverShopViewModel()
         }
 
         binding.refreshLayout.setOnRefreshListener {
             display += 10
-            initViewModel()
+            initNaverShopViewModel()
             binding.refreshLayout.setRefreshing(false)
         }
 
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViewModel() {
+    private fun initNaverShopViewModel() {
         viewModel.searchNaverShop(display)
     }
 }
