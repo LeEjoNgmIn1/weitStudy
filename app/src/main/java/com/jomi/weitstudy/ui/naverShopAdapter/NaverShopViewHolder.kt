@@ -9,7 +9,7 @@ class NaverShopViewHolder(private val binding: ItemShopBinding): RecyclerView.Vi
     fun bind(data: NaverShopItem){
         binding.tvShopTitle.text = data.title
         binding.tvShopMallName.text = data.mallName
-        binding.tvShopLprice.text = data.lprice + "원"
+        binding.tvShopLprice.text = data.lprice
 
         Glide.with(binding.ivShopItemList)
             .load(data.image)
