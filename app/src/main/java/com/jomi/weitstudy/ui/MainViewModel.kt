@@ -17,15 +17,14 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val naverShopRepository: NaverShopRepository) : ViewModel() {
 
-    private var _naverShopApiResult : MutableList<NaverShopItem> = mutableListOf()
-
     private var _naverShopResult : MutableLiveData<List<NaverShopItem>> = MutableLiveData()
     val naverShopResult : LiveData<List<NaverShopItem>> get() = _naverShopResult
 
-    private var _naverShopListPage : MutableLiveData<Int> = MutableLiveData(0)
-    val naverShopListPage : LiveData<Int> get() = _naverShopListPage
+    private var _naverShopApiResult : MutableList<NaverShopItem> = mutableListOf()
 
-    fun searchNaverShop(page : Int) {
+    private var _naverShopListPage : MutableLiveData<Int> = MutableLiveData(0)
+
+    private fun _searchNaverShop(page : Int = 0) {
         viewModelScope.launch {
             val response = naverShopRepository.naverShopSearch("가방", PAGE_SIZE, page * PAGE_SIZE + 1)
             var temp = response.body()?.items
@@ -35,12 +34,18 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
         }
     }
 
-    fun pageUp(){
-        _naverShopListPage.value = _naverShopListPage.value?.plus(1)
+    fun searchNaverShop(){
+        _searchNaverShop(_naverShopListPage.value!!)
+        pageUp()
+    }
+
+    private fun pageUp(){
+        _naverShopListPage.value = _naverShopListPage.value?.plus(PAGE_UP)
     }
 
 
     companion object{
         const val PAGE_SIZE = 20
+        const val PAGE_UP = 1
     }
 }

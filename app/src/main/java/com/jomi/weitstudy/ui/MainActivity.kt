@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         initRecycleView()
 
         binding.btnGet.setOnClickListener {
-            initNaverShopViewModel(viewModel.naverShopListPage.value)
+            initNaverShopViewModel()
         }
 
     }
@@ -45,10 +45,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initNaverShopViewModel(value: Int?) {
-        if (value != null) {
-            viewModel.searchNaverShop(value)
-        }
-        viewModel.pageUp()
+    private fun initNaverShopViewModel() {
+        viewModel.searchNaverShop()
     }
 }
