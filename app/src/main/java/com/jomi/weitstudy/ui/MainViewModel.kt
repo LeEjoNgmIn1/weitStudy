@@ -1,5 +1,8 @@
 package com.jomi.weitstudy.ui
 
+import android.annotation.SuppressLint
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,15 +19,22 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
     private var _naverShopResult : MutableLiveData<List<NaverShopItem>> = MutableLiveData()
     val naverShopResult : LiveData<List<NaverShopItem>> get() = _naverShopResult
 
-    private var _naverShopListPage : MutableLiveData<Int> = MutableLiveData()
-    val naverShopItemListPage : LiveData<Int> get() = _naverShopListPage
+    private var _naverShopListPage : MutableLiveData<Int> = MutableLiveData(0)
+    val naverShopListPage : LiveData<Int> get() = _naverShopListPage
 
-
-    fun searchNaverShop(page: Int = 0) {
+    fun searchNaverShop(page : Int) {
         viewModelScope.launch {
             val response = naverShopRepository.naverShopSearch("가방", PAGE_SIZE, page * PAGE_SIZE + 1)
             _naverShopResult.postValue(response.body()?.items)
+            Log.d("lee","$page")
         }
+    }
+
+    @SuppressLint("LogNotTimber")
+    fun pageUp(){
+        _naverShopListPage.value = _naverShopListPage.value?.plus(1)
+        Log.d("lee", "_page type : ${_naverShopListPage.value}" )
+        Log.d("lee", "page type : ${naverShopListPage.value}" )
     }
 
     companion object{

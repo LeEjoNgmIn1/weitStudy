@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.jomi.weitstudy.R
 import com.jomi.weitstudy.databinding.ActivityMainBinding
 import com.jomi.weitstudy.ui.naverShopAdapter.ShopAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         initRecycleView()
 
         binding.btnGet.setOnClickListener {
-            initNaverShopViewModel()
+            initNaverShopViewModel(viewModel.naverShopListPage.value)
         }
 
     }
@@ -47,7 +45,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initNaverShopViewModel() {
-        viewModel.searchNaverShop()
+    private fun initNaverShopViewModel(value: Int?) {
+        if (value != null) {
+            viewModel.searchNaverShop(value)
+        }
+        viewModel.pageUp()
     }
 }
