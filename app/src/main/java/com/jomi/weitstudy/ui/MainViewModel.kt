@@ -26,15 +26,12 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
         viewModelScope.launch {
             val response = naverShopRepository.naverShopSearch("가방", PAGE_SIZE, page * PAGE_SIZE + 1)
             _naverShopResult.postValue(response.body()?.items)
-            Log.d("lee","$page")
         }
     }
 
     @SuppressLint("LogNotTimber")
     fun pageUp(){
         _naverShopListPage.value = _naverShopListPage.value?.plus(1)
-        Log.d("lee", "_page type : ${_naverShopListPage.value}" )
-        Log.d("lee", "page type : ${naverShopListPage.value}" )
     }
 
     companion object{
