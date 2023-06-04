@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
 
-    private var display = 0
     private val myRecyclerViewAdapter : ShopAdapter = ShopAdapter()
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
@@ -35,12 +34,6 @@ class MainActivity : AppCompatActivity() {
             initNaverShopViewModel()
         }
 
-        binding.refreshLayout.setOnRefreshListener {
-            display += 10
-            initNaverShopViewModel()
-            binding.refreshLayout.setRefreshing(false)
-        }
-
     }
     private fun initRecycleView() {
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
@@ -55,6 +48,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initNaverShopViewModel() {
-        viewModel.searchNaverShop(display)
+        viewModel.searchNaverShop()
     }
 }
