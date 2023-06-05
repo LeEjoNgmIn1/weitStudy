@@ -22,6 +22,8 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
 
     private var _naverShopApiResult : MutableList<NaverShopItem> = mutableListOf()
 
+    private var _naerShopTotalItemNum : MutableLiveData<Int> = MutableLiveData(0)
+
     private var _naverShopListPage : MutableLiveData<Int> = MutableLiveData(0)
 
     private fun _searchNaverShop(page : Int = 0) {
@@ -30,6 +32,7 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
             var temp = response.body()?.items
             temp?.let { _naverShopApiResult.addAll(it) }
 
+            _naerShopTotalItemNum.postValue(response.body()?.total)
             _naverShopResult.postValue(_naverShopApiResult.toList())
         }
     }
@@ -41,6 +44,10 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
 
     private fun pageUp(){
         _naverShopListPage.value = _naverShopListPage.value?.plus(PAGE_UP)
+    }
+
+    fun hasNextPage() : Boolean {
+        return _naverShopListPage.value!! * PAGE_SIZE < _naerShopTotalItemNum.value!!
     }
 
 

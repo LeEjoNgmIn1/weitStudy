@@ -16,3 +16,4 @@ class NaverShopViewHolder(private val binding: ItemShopBinding): RecyclerView.Vi
             .into(binding.ivShopItemList)
     }
 }
+

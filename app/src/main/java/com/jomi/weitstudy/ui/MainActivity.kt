@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jomi.weitstudy.databinding.ActivityMainBinding
 import com.jomi.weitstudy.ui.naverShopAdapter.ShopAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,15 +28,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initRecycleView()
+        initNaverShopViewModel()
 
-        binding.btnGet.setOnClickListener {
-            initNaverShopViewModel()
-        }
+        binding.rvNaverShopSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!binding.rvNaverShopSearch.canScrollVertically(1)) {
+                    initNaverShopViewModel()
+                }
+            }
+        })
 
     }
     private fun initRecycleView() {
-        binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
-        binding.recyclerView.adapter = myRecyclerViewAdapter
+        binding.rvNaverShopSearch.layoutManager = GridLayoutManager(this, 2)
+        binding.rvNaverShopSearch.adapter = myRecyclerViewAdapter
         viewModel.naverShopResult .observe(this){
             if (it != null) {
                 myRecyclerViewAdapter.submitList(it)
@@ -48,4 +55,5 @@ class MainActivity : AppCompatActivity() {
     private fun initNaverShopViewModel() {
         viewModel.searchNaverShop()
     }
+
 }
