@@ -10,6 +10,9 @@ class NaverShopRepository @Inject constructor(private val naverShopService : Nav
     suspend operator fun invoke(query: String, display: Int, start: Int) : ApiResponse<NaverShopResponse> =
         naverShopService.getSearchShop(query, display, start)
 
+    suspend fun naverShopSearch(query: String, display: Int, start: Int) : ApiResponse<NaverShopResponse> =
+        naverShopService.getSearchShop(query, display, start)
+
 }
 
 

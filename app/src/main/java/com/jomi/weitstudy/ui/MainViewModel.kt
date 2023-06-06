@@ -32,7 +32,7 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
     private fun _searchNaverShop(page : Int = 0) {
         viewModelScope.launch {
 
-            val response = naverShopRepository.invoke("가방", PAGE_SIZE, page * PAGE_SIZE + 1)
+            val response = naverShopRepository.naverShopSearch("가방", PAGE_SIZE, page * PAGE_SIZE + 1)
             response.onSuccess {
                 var temp = data.items
                 temp?.let { _naverShopApiResult.addAll(it) }
@@ -43,7 +43,7 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
             }.onError {
                 // 네트워크로 부터 에러응답을 내려받은 경우를 의미
             }.onException {
-                // 네트워크로 응답을 받기 전/후에 예상치 못한 이유로 요청이 실패했음을 의미
+                // 네트워크로 응답을 받기 전/후에 예상치 못한 이유로 요청이 실패했음을 의
             }
         }
     }
