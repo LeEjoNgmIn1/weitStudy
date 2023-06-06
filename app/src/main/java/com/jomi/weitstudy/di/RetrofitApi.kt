@@ -4,6 +4,7 @@ import com.jomi.weitstudy.BuildConfig
 import com.jomi.weitstudy.network.NaverShopRepository
 import com.jomi.weitstudy.network.NaverShopService
 import com.jomi.weitstudy.others.Constants
+import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,6 +51,7 @@ object RetrofitApi {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit{
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create())
+            .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
             .client(okHttpClient)
             .baseUrl(BASE_URL)
             .build()

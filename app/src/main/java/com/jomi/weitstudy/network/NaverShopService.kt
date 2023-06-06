@@ -3,6 +3,7 @@ package com.jomi.weitstudy.network
 import com.jomi.weitstudy.network.model.NaverShopResponse
 import com.jomi.weitstudy.others.Constants.CLIENT_ID
 import com.jomi.weitstudy.others.Constants.CLIENT_SECRET
+import com.skydoves.sandwich.ApiResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
@@ -19,5 +20,5 @@ interface NaverShopService {
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int
-    ) : Response<NaverShopResponse>
+    ) : ApiResponse<NaverShopResponse>
 }

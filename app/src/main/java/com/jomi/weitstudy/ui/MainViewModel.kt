@@ -10,6 +10,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jomi.weitstudy.network.NaverShopRepository
 import com.jomi.weitstudy.network.model.NaverShopItem
+import com.skydoves.sandwich.onError
+import com.skydoves.sandwich.onException
+import com.skydoves.sandwich.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,18 +31,25 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
 
     private fun _searchNaverShop(page : Int = 0) {
         viewModelScope.launch {
-            val response = naverShopRepository.naverShopSearch("가방", PAGE_SIZE, page * PAGE_SIZE + 1)
-            var temp = response.body()?.items
-            temp?.let { _naverShopApiResult.addAll(it) }
 
-            _naerShopTotalItemNum.postValue(response.body()?.total)
-            _naverShopResult.postValue(_naverShopApiResult.toList())
+            val response = naverShopRepository.invoke("가방", PAGE_SIZE, page * PAGE_SIZE + 1)
+            response.onSuccess {
+                var temp = data.items
+                temp?.let { _naverShopApiResult.addAll(it) }
+
+                _naerShopTotalItemNum.postValue(data.total)
+                _naverShopResult.postValue(_naverShopApiResult)
+                pageUp()
+            }.onError {
+                // 네트워크로 부터 에러응답을 내려받은 경우를 의미
+            }.onException {
+                // 네트워크로 응답을 받기 전/후에 예상치 못한 이유로 요청이 실패했음을 의미
+            }
         }
     }
 
     fun searchNaverShop(){
         _searchNaverShop(_naverShopListPage.value!!)
-        pageUp()
     }
 
     private fun pageUp(){
