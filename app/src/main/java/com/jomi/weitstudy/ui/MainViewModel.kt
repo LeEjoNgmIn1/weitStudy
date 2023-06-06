@@ -39,7 +39,7 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
                 temp?.let { _naverShopApiResult.addAll(it) }
 
                 _naerShopTotalItemNum.postValue(data.total)
-                _naverShopResult.postValue(_naverShopApiResult)
+                _naverShopResult.postValue(_naverShopApiResult.toList())
                 pageUp()
             }.onError {
                 // 네트워크로 부터 에러응답을 내려받은 경우를 의미
