@@ -28,6 +28,7 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
     private var _naerShopTotalItemNum : MutableLiveData<Int> = MutableLiveData(0)
 
     private var _naverShopListPage : MutableLiveData<Int> = MutableLiveData(0)
+    val naverShopListPage : LiveData<Int> get() = _naverShopListPage
 
     private fun _searchNaverShop(page : Int = 0) {
         viewModelScope.launch {
@@ -43,7 +44,7 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
             }.onError {
                 // 네트워크로 부터 에러응답을 내려받은 경우를 의미
             }.onException {
-                // 네트워크로 응답을 받기 전/후에 예상치 못한 이유로 요청이 실패했음을 의
+                // 네트워크로 응답을 받기 전/후에 예상치 못한 이유로 요청이 실패했음을 의미
             }
         }
     }

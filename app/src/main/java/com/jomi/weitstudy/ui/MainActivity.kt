@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jomi.weitstudy.R
 import com.jomi.weitstudy.databinding.ActivityMainBinding
 import com.jomi.weitstudy.ui.naverShopAdapter.ShopAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,19 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         initRecycleView()
         initNaverShopViewModel()
+        onScrolled()
+        onRefresh()
 
-//        binding.rvNaverShopSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                if (!binding.rvNaverShopSearch.canScrollVertically(1)) {
-//                    initNaverShopViewModel()
-//                }
-//            }
-//        })
-
-        binding.refreshLayout.setOnRefreshListener {
-            binding.refreshLayout.isRefreshing = false
-        }
 
     }
     private fun initRecycleView() {
@@ -58,6 +49,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun initNaverShopViewModel() {
         viewModel.searchNaverShop()
+    }
+
+    private fun onScrolled(){
+        binding.rvNaverShopSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!binding.rvNaverShopSearch.canScrollVertically(1)) {
+                    initNaverShopViewModel()
+                }
+            }
+        })
+        Toast.makeText(this, "page : ${viewModel.naverShopListPage.value}", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onRefresh(){
+        binding.refreshLayout.setOnRefreshListener {
+            Toast.makeText(this, R.string.Refresh, Toast.LENGTH_SHORT).show()
+            binding.refreshLayout.isRefreshing = false
+        }
     }
 
 }
