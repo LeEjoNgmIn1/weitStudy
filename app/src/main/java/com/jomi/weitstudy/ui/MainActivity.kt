@@ -30,14 +30,18 @@ class MainActivity : AppCompatActivity() {
         initRecycleView()
         initNaverShopViewModel()
 
-        binding.rvNaverShopSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (!binding.rvNaverShopSearch.canScrollVertically(1)) {
-                    initNaverShopViewModel()
-                }
-            }
-        })
+//        binding.rvNaverShopSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                if (!binding.rvNaverShopSearch.canScrollVertically(1)) {
+//                    initNaverShopViewModel()
+//                }
+//            }
+//        })
+
+        binding.refreshLayout.setOnRefreshListener {
+            binding.refreshLayout.isRefreshing = false
+        }
 
     }
     private fun initRecycleView() {
