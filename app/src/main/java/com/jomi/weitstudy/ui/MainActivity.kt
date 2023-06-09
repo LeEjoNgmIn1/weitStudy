@@ -18,8 +18,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
     private val myRecyclerViewAdapter: ShopAdapter = ShopAdapter()
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+    private val viewModel: SearchViewModel by lazy {
+        ViewModelProvider(this).get(SearchViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onRefresh(){
         binding.refreshLayout.setOnRefreshListener {
+            viewModel.pagReset()
             Toast.makeText(this, R.string.Refresh, Toast.LENGTH_SHORT).show()
             binding.refreshLayout.isRefreshing = false
         }

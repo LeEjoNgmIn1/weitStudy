@@ -1,10 +1,7 @@
 package com.jomi.weitstudy.ui
 
-import android.annotation.SuppressLint
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val naverShopRepository: NaverShopRepository) : ViewModel() {
+class SearchViewModel @Inject constructor(private val naverShopRepository: NaverShopRepository) : ViewModel() {
 
     private var _naverShopResult : MutableLiveData<List<NaverShopItem>> = MutableLiveData()
     val naverShopResult : LiveData<List<NaverShopItem>> get() = _naverShopResult
@@ -55,6 +52,12 @@ class MainViewModel @Inject constructor(private val naverShopRepository: NaverSh
 
     private fun pageUp(){
         _naverShopListPage.value = _naverShopListPage.value?.plus(PAGE_UP)
+    }
+
+    fun pagReset(){
+        _naverShopListPage.value = 0
+        _naverShopApiResult.clear()
+        _naverShopResult.postValue(_naverShopApiResult.toList())
     }
 
     fun hasNextPage() : Boolean {
