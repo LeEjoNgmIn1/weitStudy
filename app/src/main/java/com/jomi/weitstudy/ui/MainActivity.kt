@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jomi.weitstudy.R
 import com.jomi.weitstudy.databinding.ActivityMainBinding
@@ -40,7 +41,11 @@ class MainActivity : AppCompatActivity() {
         binding.rvNaverShopSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (!binding.rvNaverShopSearch.canScrollVertically(1)) {
+
+                val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                val itemTotalCount =recyclerView.adapter!!.itemCount - 1
+
+                if (lastVisibleItemPosition == itemTotalCount && !binding.rvNaverShopSearch.canScrollVertically(1)) {
                     initNaverShopViewModel()
                     Toast.makeText(this@MainActivity, "page : ${viewModel.naverShopListPage.value}" , Toast.LENGTH_SHORT).show()
                 }
@@ -63,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onRefresh(){
         binding.refreshLayout.setOnRefreshListener {
-            viewModel.pagReset()
+            viewModel.pageReset()
             Toast.makeText(this, R.string.Refresh, Toast.LENGTH_SHORT).show()
             binding.refreshLayout.isRefreshing = false
         }

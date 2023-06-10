@@ -22,8 +22,6 @@ class SearchViewModel @Inject constructor(private val naverShopRepository: Naver
 
     private var _naverShopApiResult : MutableList<NaverShopItem> = mutableListOf()
 
-    private var _naerShopTotalItemNum : MutableLiveData<Int> = MutableLiveData(0)
-
     private var _naverShopListPage : MutableLiveData<Int> = MutableLiveData(0)
     val naverShopListPage : LiveData<Int> get() = _naverShopListPage
 
@@ -35,7 +33,6 @@ class SearchViewModel @Inject constructor(private val naverShopRepository: Naver
                 var temp = data.items
                 temp?.let { _naverShopApiResult.addAll(it) }
 
-                _naerShopTotalItemNum.postValue(data.total)
                 _naverShopResult.postValue(_naverShopApiResult.toList())
                 pageUp()
             }.onError {
@@ -54,16 +51,11 @@ class SearchViewModel @Inject constructor(private val naverShopRepository: Naver
         _naverShopListPage.value = _naverShopListPage.value?.plus(PAGE_UP)
     }
 
-    fun pagReset(){
+    fun pageReset(){
         _naverShopListPage.value = 0
         _naverShopApiResult.clear()
         _naverShopResult.postValue(_naverShopApiResult.toList())
     }
-
-    fun hasNextPage() : Boolean {
-        return _naverShopListPage.value!! * PAGE_SIZE < _naerShopTotalItemNum.value!!
-    }
-
 
     companion object{
         const val PAGE_SIZE = 20
