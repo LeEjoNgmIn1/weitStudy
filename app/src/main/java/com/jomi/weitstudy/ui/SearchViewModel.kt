@@ -11,6 +11,9 @@ import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,18 +23,22 @@ class SearchViewModel @Inject constructor(private val naverShopRepository: Naver
     private var _naverShopResult : MutableLiveData<List<NaverShopItem>> = MutableLiveData()
     val naverShopResult : LiveData<List<NaverShopItem>> get() = _naverShopResult
 
-    private var _naverShopApiResult : MutableList<NaverShopItem> = mutableListOf()
-
     private var _naverShopListPage : MutableLiveData<Int> = MutableLiveData(0)
     val naverShopListPage : LiveData<Int> get() = _naverShopListPage
 
-    private fun _searchNaverShop(page : Int = 0) {
-        viewModelScope.launch {
+    private var _naverShopApiResult : MutableList<NaverShopItem> = mutableListOf()
 
+    private var searchJob: Job = Job().apply {
+        cancel()
+    }
+
+
+    private fun _searchNaverShop(page : Int = 0) {
+        searchJob = viewModelScope.launch {
             val response = naverShopRepository.naverShopSearch("가방", PAGE_SIZE, page * PAGE_SIZE + 1)
             response.onSuccess {
                 var temp = data.items
-                temp?.let { _naverShopApiResult.addAll(it) }
+                temp?.let{_naverShopApiResult.addAll(it)}
 
                 _naverShopResult.postValue(_naverShopApiResult.toList())
                 pageUp()
@@ -44,7 +51,9 @@ class SearchViewModel @Inject constructor(private val naverShopRepository: Naver
     }
 
     fun searchNaverShop(){
-        _searchNaverShop(_naverShopListPage.value!!)
+        if(searchJob.isCompleted) {
+            _searchNaverShop(_naverShopListPage.value!!)
+        }
     }
 
     private fun pageUp(){

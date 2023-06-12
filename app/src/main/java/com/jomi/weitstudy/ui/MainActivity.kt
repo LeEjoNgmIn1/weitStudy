@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initRecycleView()
-        initNaverShopViewModel()
+        pageUpNaverShopViewModel()
 
         onRefresh()
     }
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 val itemTotalCount =recyclerView.adapter!!.itemCount - 1
 
                 if (lastVisibleItemPosition == itemTotalCount) {
-                    initNaverShopViewModel()
+                    pageUpNaverShopViewModel()
                     Toast.makeText(this@MainActivity, "page : ${viewModel.naverShopListPage.value}" , Toast.LENGTH_SHORT).show()
                 }
             }
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initNaverShopViewModel() {
+    private fun pageUpNaverShopViewModel() {
         viewModel.searchNaverShop()
     }
 
