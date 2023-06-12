@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
                 val itemTotalCount =recyclerView.adapter!!.itemCount - 1
 
-                if (lastVisibleItemPosition == itemTotalCount && !binding.rvNaverShopSearch.canScrollVertically(1)) {
+                if (lastVisibleItemPosition == itemTotalCount) {
                     initNaverShopViewModel()
                     Toast.makeText(this@MainActivity, "page : ${viewModel.naverShopListPage.value}" , Toast.LENGTH_SHORT).show()
                 }
@@ -73,5 +73,4 @@ class MainActivity : AppCompatActivity() {
             binding.refreshLayout.isRefreshing = false
         }
     }
-
 }
