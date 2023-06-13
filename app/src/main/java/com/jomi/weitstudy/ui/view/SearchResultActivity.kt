@@ -1,4 +1,4 @@
-package com.jomi.weitstudy.ui
+package com.jomi.weitstudy.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,24 +8,25 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jomi.weitstudy.R
-import com.jomi.weitstudy.databinding.ActivityMainBinding
-import com.jomi.weitstudy.ui.naverShopAdapter.ShopAdapter
+import com.jomi.weitstudy.databinding.ActivitySearchResultBinding
+import com.jomi.weitstudy.ui.viewmodel.SearchResultViewModel
+import com.jomi.weitstudy.ui.adapter.ShopAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 // NaverShop Branch
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class SearchResultActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivitySearchResultBinding
 
     private val myRecyclerViewAdapter: ShopAdapter = ShopAdapter()
-    private val viewModel: SearchViewModel by lazy {
-        ViewModelProvider(this).get(SearchViewModel::class.java)
+    private val viewModel: SearchResultViewModel by lazy {
+        ViewModelProvider(this).get(SearchResultViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivitySearchResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initRecycleView()
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (lastVisibleItemPosition == itemTotalCount) {
                     pageUpNaverShopViewModel()
-                    Toast.makeText(this@MainActivity, "page : ${viewModel.naverShopListPage.value}" , Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SearchResultActivity, "page : ${viewModel.naverShopListPage.value}" , Toast.LENGTH_SHORT).show()
                 }
             }
         })

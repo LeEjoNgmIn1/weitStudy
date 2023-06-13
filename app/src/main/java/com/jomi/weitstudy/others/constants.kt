@@ -5,3 +5,8 @@ object Constants {
     const val CLIENT_ID: String = "1x2aTgZVkK7svKJMvV3Y"
     const val CLIENT_SECRET: String = "omjUXekf98"
 }
+
+enum class REFRESH_STATE{
+    TRUE,
+    FALSE
+}

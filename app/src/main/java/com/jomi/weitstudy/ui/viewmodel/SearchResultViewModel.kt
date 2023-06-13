@@ -1,4 +1,4 @@
-package com.jomi.weitstudy.ui
+package com.jomi.weitstudy.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -11,14 +11,12 @@ import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val naverShopRepository: NaverShopRepository) : ViewModel() {
+class SearchResultViewModel @Inject constructor(private val naverShopRepository: NaverShopRepository) : ViewModel() {
 
     private var _naverShopResult : MutableLiveData<List<NaverShopItem>> = MutableLiveData()
     val naverShopResult : LiveData<List<NaverShopItem>> get() = _naverShopResult
