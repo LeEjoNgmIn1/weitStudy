@@ -1,7 +1,10 @@
 package com.jomi.weitstudy.ui.view
 
+import android.app.SearchManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -29,6 +32,7 @@ class SearchResultActivity : AppCompatActivity() {
         binding = ActivitySearchResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 액티비티에서 어떤 액션바를 사용할 지 설정
         setSupportActionBar(binding.topAppBar)
 
         initRecycleView()
@@ -78,5 +82,14 @@ class SearchResultActivity : AppCompatActivity() {
         }
     }
 
-    
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.top_app_bar_menu, menu)
+
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+
+        menu.findItem()
+
+        return super.true
+    }
 }
