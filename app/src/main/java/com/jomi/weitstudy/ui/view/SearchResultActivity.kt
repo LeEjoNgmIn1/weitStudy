@@ -29,6 +29,8 @@ class SearchResultActivity : AppCompatActivity() {
         binding = ActivitySearchResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.topAppBar)
+
         initRecycleView()
         pageUpNaverShopViewModel()
 
@@ -75,4 +77,6 @@ class SearchResultActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.Refresh, Toast.LENGTH_SHORT).show()
         }
     }
+
+    
 }
