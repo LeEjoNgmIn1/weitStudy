@@ -1,15 +1,15 @@
 package com.jomi.weitstudy.ui.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.jomi.weitstudy.R
 import com.jomi.weitstudy.databinding.ActivityMainBinding
-import com.jomi.weitstudy.others.onMyTextChanged
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
+    lateinit var inputQuery : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,6 +28,15 @@ class MainActivity : AppCompatActivity() {
             if(it.toString().count() == 12){
                 Toast.makeText(this, "검색어는 12자까지만 입력 가능합니다.", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        // 검색 버튼 클릭스
+        binding.btnItemSearch.setOnClickListener {
+            val intent : Intent = Intent(this, SearchResultActivity::class.java)
+            inputQuery = binding.etMainSearch.toString()
+            intent.putExtra("inputQuery", inputQuery)
+
+            startActivity(intent)
         }
     }
 }

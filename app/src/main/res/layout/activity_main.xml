@@ -27,6 +27,7 @@
             android:id="@+id/tf_main_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             app:shapeAppearance="@style/ShapeAppearance.MaterialComponents.MediumComponent"
             app:boxStrokeColor="@color/design_default_color_primary"
             app:helperText="@string/item_search_helper"
@@ -51,6 +52,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
+=======
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:listitem="@layout/item_shop" />
+        
+>>>>>>> 82e68142b637c0acdde6ff660aa3fde20f2f5e3f
 
             <Button
                 android:id="@+id/btn_item_search"

@@ -1,10 +1,14 @@
 package com.jomi.weitstudy.ui.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.jomi.weitstudy.R
 import com.jomi.weitstudy.network.NaverShopRepository
 import com.jomi.weitstudy.network.model.NaverShopItem
 import com.skydoves.sandwich.onError
@@ -35,6 +39,12 @@ class SearchResultViewModel @Inject constructor(private val naverShopRepository:
         searchJob = viewModelScope.launch {
             val response = naverShopRepository.naverShopSearch("가방", PAGE_SIZE, page * PAGE_SIZE + 1)
             response.onSuccess {
+
+                if (page == 0) {
+                    _naverShopApiResult.clear()
+                    _naverShopResult.postValue(_naverShopApiResult.toList())
+                }
+
                 var temp = data.items
                 temp?.let{_naverShopApiResult.addAll(it)}
 
@@ -58,10 +68,11 @@ class SearchResultViewModel @Inject constructor(private val naverShopRepository:
         _naverShopListPage.value = _naverShopListPage.value?.plus(PAGE_UP)
     }
 
-    fun pageReset(){
+    fun pageReset(rf: SwipeRefreshLayout){
         _naverShopListPage.value = 0
-        _naverShopApiResult.clear()
-        _naverShopResult.postValue(_naverShopApiResult.toList())
+        if (rf.isRefreshing && searchJob.isCompleted){
+            rf.isRefreshing = false
+        }
     }
 
     companion object{

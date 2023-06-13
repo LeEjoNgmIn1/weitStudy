@@ -69,9 +69,10 @@ class SearchResultActivity : AppCompatActivity() {
 
     private fun onRefresh(){
         binding.refreshLayout.setOnRefreshListener {
-            viewModel.pageReset()
+            viewModel.pageReset(binding.refreshLayout)
+        }
+        if (!binding.refreshLayout.isRefreshing){
             Toast.makeText(this, R.string.Refresh, Toast.LENGTH_SHORT).show()
-            binding.refreshLayout.isRefreshing = false
         }
     }
 }
