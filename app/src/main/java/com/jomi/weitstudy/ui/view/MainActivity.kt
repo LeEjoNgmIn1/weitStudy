@@ -3,8 +3,10 @@ package com.jomi.weitstudy.ui.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.jomi.weitstudy.R
 import com.jomi.weitstudy.databinding.ActivityMainBinding
+import com.jomi.weitstudy.others.onMyTextChanged
 
 class MainActivity : AppCompatActivity() {
 
