@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.jomi.weitstudy.R
 import com.jomi.weitstudy.databinding.ActivityMainBinding
 import com.jomi.weitstudy.others.onMyTextChanged
 
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         // 검색 버튼 클릭스
         binding.btnItemSearch.setOnClickListener {
             val intent : Intent = Intent(this, SearchResultActivity::class.java)
-            inputQuery = binding.etMainSearch.toString()
+            inputQuery = binding.etMainSearch.text.toString()
             intent.putExtra("inputQuery", inputQuery)
 
             startActivity(intent)
