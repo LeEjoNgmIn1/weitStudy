@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class LikeShopItem(
     @PrimaryKey(autoGenerate = true)
     var productId: String,
-    var isLike : Boolean,
-    var numLike : String
+    var isLike : Boolean = false,
+    var numLike : Int = 0
 )
