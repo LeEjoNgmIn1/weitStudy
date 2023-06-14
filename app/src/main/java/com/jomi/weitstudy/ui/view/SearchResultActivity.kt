@@ -38,12 +38,12 @@ class SearchResultActivity : AppCompatActivity() {
         // 액티비티에서 어떤 액션바를 사용할 지 설정
         setSupportActionBar(binding.topAppBar)
 
-        initRecycleView()
+        setUpNaverShopRecyclerView()
         pageUpNaverShopViewModel(userQuery)
         onRefresh()
     }
 
-    private fun initRecycleView() {
+    private fun setUpNaverShopRecyclerView() {
         binding.rvNaverShopSearch.layoutManager = GridLayoutManager(this, 2)
         binding.rvNaverShopSearch.adapter = myRecyclerViewAdapter
 
@@ -74,13 +74,7 @@ class SearchResultActivity : AppCompatActivity() {
         viewModel.searchNaverShop(query)
     }
 
-
-    private fun onRefresh(){
-        binding.refreshLayout.setOnRefreshListener {
-            viewModel.pageReset(binding.refreshLayout)
-        }
-        if (!binding.refreshLayout.isRefreshing){
-            Toast.makeText(this, R.string.Refresh, Toast.LENGTH_SHORT).show()
-        }
+    fun onRefresh(){
     }
+
 }

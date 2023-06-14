@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jomi.weitstudy.R
 import com.jomi.weitstudy.network.NaverShopRepository
 import com.jomi.weitstudy.network.model.NaverShopItem
+import com.jomi.weitstudy.others.REFRESH_STATE
 import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.onSuccess
@@ -30,21 +31,44 @@ class SearchResultViewModel @Inject constructor(private val naverShopRepository:
 
     private var _naverShopApiResult : MutableList<NaverShopItem> = mutableListOf()
 
+    private var searchResultRefreshState : REFRESH_STATE = REFRESH_STATE.FALSE
+
     private var searchJob: Job = Job().apply {
         cancel()
     }
 
 
-    private fun _searchNaverShop(query : String = "" ,page : Int = 0) {
+//    private fun _searchNaverShop(query : String = "" ,page : Int = 0) {
+//        searchJob = viewModelScope.launch {
+//            val response = naverShopRepository.naverShopSearch(query, PAGE_SIZE, page * PAGE_SIZE + 1)
+//            response.onSuccess {
+//
+//                if (page == 0) {
+//                    _naverShopApiResult.clear()
+//                    _naverShopResult.postValue(_naverShopApiResult.toList())
+//                }
+//
+//                var temp = data.items
+//                temp?.let{_naverShopApiResult.addAll(it)}
+//
+//                _naverShopResult.postValue(_naverShopApiResult.toList())
+//                pageUp()
+//            }.onError {
+//                Log.d("jomi", "네트워크로 부터 에러응답을 내려받음")
+//            }.onException {
+//                Log.d("jomi", "네트워크로 응답을 받기 전/후에 예상치 못한 이유로 요청이 실패함")
+//            }
+//        }
+//    }
+
+    private fun _searchNaverShop(query: String = "", page: Int = 0){
         searchJob = viewModelScope.launch {
             val response = naverShopRepository.naverShopSearch(query, PAGE_SIZE, page * PAGE_SIZE + 1)
+            if(page == 0){
+                _naverShopApiResult.clear()
+            }
+
             response.onSuccess {
-
-                if (page == 0) {
-                    _naverShopApiResult.clear()
-                    _naverShopResult.postValue(_naverShopApiResult.toList())
-                }
-
                 var temp = data.items
                 temp?.let{_naverShopApiResult.addAll(it)}
 
@@ -55,6 +79,7 @@ class SearchResultViewModel @Inject constructor(private val naverShopRepository:
             }.onException {
                 Log.d("jomi", "네트워크로 응답을 받기 전/후에 예상치 못한 이유로 요청이 실패함")
             }
+
         }
     }
 
@@ -67,13 +92,10 @@ class SearchResultViewModel @Inject constructor(private val naverShopRepository:
     private fun pageUp(){
         _naverShopListPage.value = _naverShopListPage.value?.plus(PAGE_UP)
     }
-
-    fun pageReset(rf: SwipeRefreshLayout){
+    fun pageReset(){
         _naverShopListPage.value = 0
-        if (rf.isRefreshing && searchJob.isCompleted){
-            rf.isRefreshing = false
-        }
     }
+
 
     companion object{
         const val PAGE_SIZE = 20
