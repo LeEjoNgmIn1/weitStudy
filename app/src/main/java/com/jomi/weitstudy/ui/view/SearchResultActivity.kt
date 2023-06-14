@@ -39,7 +39,7 @@ class SearchResultActivity : AppCompatActivity() {
         setSupportActionBar(binding.topAppBar)
 
         initRecycleView()
-        pageUpNaverShopViewModel()
+        pageUpNaverShopViewModel(userQuery)
         onRefresh()
     }
 
@@ -55,7 +55,7 @@ class SearchResultActivity : AppCompatActivity() {
                 val itemTotalCount =recyclerView.adapter!!.itemCount - 1
 
                 if (lastVisibleItemPosition == itemTotalCount) {
-                    pageUpNaverShopViewModel()
+                    pageUpNaverShopViewModel(userQuery)
                     Toast.makeText(this@SearchResultActivity, "page : ${viewModel.naverShopListPage.value}" , Toast.LENGTH_SHORT).show()
                 }
             }
@@ -70,8 +70,8 @@ class SearchResultActivity : AppCompatActivity() {
         }
     }
 
-    private fun pageUpNaverShopViewModel() {
-        viewModel.searchNaverShop()
+    private fun pageUpNaverShopViewModel(query: String) {
+        viewModel.searchNaverShop(query)
     }
 
 

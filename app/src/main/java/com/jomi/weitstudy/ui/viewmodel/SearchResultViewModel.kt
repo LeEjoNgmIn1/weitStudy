@@ -35,9 +35,9 @@ class SearchResultViewModel @Inject constructor(private val naverShopRepository:
     }
 
 
-    private fun _searchNaverShop(page : Int = 0) {
+    private fun _searchNaverShop(query : String = "" ,page : Int = 0) {
         searchJob = viewModelScope.launch {
-            val response = naverShopRepository.naverShopSearch("가방", PAGE_SIZE, page * PAGE_SIZE + 1)
+            val response = naverShopRepository.naverShopSearch(query, PAGE_SIZE, page * PAGE_SIZE + 1)
             response.onSuccess {
 
                 if (page == 0) {
@@ -58,9 +58,9 @@ class SearchResultViewModel @Inject constructor(private val naverShopRepository:
         }
     }
 
-    fun searchNaverShop(){
+    fun searchNaverShop(query: String){
         if(searchJob.isCompleted) {
-            _searchNaverShop(_naverShopListPage.value!!)
+            _searchNaverShop(query, _naverShopListPage.value!!)
         }
     }
 
