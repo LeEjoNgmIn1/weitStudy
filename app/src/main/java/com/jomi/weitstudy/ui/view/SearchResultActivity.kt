@@ -33,8 +33,8 @@ class SearchResultActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         userQuery = intent.getStringExtra("inputQuery")!!
-
         binding.topAppBar.title = userQuery
+
         // 액티비티에서 어떤 액션바를 사용할 지 설정
         setSupportActionBar(binding.topAppBar)
 

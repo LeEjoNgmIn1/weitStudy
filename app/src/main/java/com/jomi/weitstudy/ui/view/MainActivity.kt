@@ -35,9 +35,14 @@ class MainActivity : AppCompatActivity() {
         binding.btnItemSearch.setOnClickListener {
             val intent : Intent = Intent(this, SearchResultActivity::class.java)
             inputQuery = binding.etMainSearch.text.toString()
-            intent.putExtra("inputQuery", inputQuery)
 
-            startActivity(intent)
+            if (inputQuery.isEmpty()){
+                Toast.makeText(this, "검색어를 입력하세요", Toast.LENGTH_SHORT).show()
+            } else {
+                intent.putExtra("inputQuery", inputQuery)
+                startActivity(intent)
+            }
+
         }
     }
 }
