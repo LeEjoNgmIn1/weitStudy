@@ -1,7 +1,9 @@
 package com.jomi.weitstudy.network.model
 
+import androidx.room.Entity
 import com.squareup.moshi.Json
 
+@Entity
 data class NaverShopItem(
 @field:Json(name = "brand")
 val brand: String,
