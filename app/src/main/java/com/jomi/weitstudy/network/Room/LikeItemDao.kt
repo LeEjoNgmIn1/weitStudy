@@ -1,9 +1,8 @@
 package com.jomi.weitstudy.network.Room
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import com.jomi.weitstudy.network.Room.LikeItem
 
 @Dao
 interface LikeItemDao {
@@ -12,6 +11,15 @@ interface LikeItemDao {
 
     @Delete
     suspend fun deleteLikeItem(likeItem: LikeItem)
+
+    @Query("SELECT * FROM like_item_table")
+    suspend fun getLikeItem() : LiveData<List<LikeItem>>
+
+    @Query("SELECT productId FROM like_item_table")
+    suspend fun getLikeItemId() : List<String>
+
+    @Query("SELECT * FROM like_item_table WHERE productId=id")
+    suspend fun isLikeItem(id: String) : LikeItem?
 }
 
 //    OnConflictStrategy.ABORT	충돌이 발생할 경우 처리 중단

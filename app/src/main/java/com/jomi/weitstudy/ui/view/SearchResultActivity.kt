@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jomi.weitstudy.R
 import com.jomi.weitstudy.databinding.ActivitySearchResultBinding
 import com.jomi.weitstudy.ui.viewmodel.SearchResultViewModel
 import com.jomi.weitstudy.ui.adapter.ShopAdapter
@@ -71,10 +70,13 @@ class SearchResultActivity : AppCompatActivity() {
     }
 
     private fun pageUpNaverShopViewModel(query: String) {
-        viewModel.searchNaverShop(query)
+        viewModel.searchNaverShop(binding.refreshLayout, query)
     }
 
     fun onRefresh(){
+        binding.refreshLayout.setOnRefreshListener{
+            viewModel.pageReset()
+        }
     }
 
 }

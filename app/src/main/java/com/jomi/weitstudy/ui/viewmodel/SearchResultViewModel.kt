@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jomi.weitstudy.network.NaverShopRepository
 import com.jomi.weitstudy.network.Room.LikeItemRepository
 import com.jomi.weitstudy.network.model.NaverShopItem
-import com.jomi.weitstudy.others.REFRESH_STATE
 import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.onSuccess
@@ -35,18 +35,19 @@ class SearchResultViewModel @Inject constructor(
     }
 
 
-    private fun _searchNaverShop(query: String = "", page: Int = 0){
+
+    private fun _searchNaverShop(swipeRefreshLayout: SwipeRefreshLayout, query: String = "", page: Int = 0){
         searchJob = viewModelScope.launch {
             val response = naverShopRepository.naverShopSearch(query, PAGE_SIZE, page * PAGE_SIZE + 1)
             if(page == 0){
                 _naverShopApiResult.clear()
+
+                if(swipeRefreshLayout.isRefreshing) {swipeRefreshLayout.isRefreshing = false}
             }
 
             response.onSuccess {
                 val temp = data.items
                 temp?.let{_naverShopApiResult.addAll(it)}
-
-
 
                 _naverShopResult.postValue(_naverShopApiResult.toList())
                 _naverShopListPage.value = _naverShopListPage.value?.plus(PAGE_UP)
@@ -59,9 +60,11 @@ class SearchResultViewModel @Inject constructor(
         }
     }
 
-    fun searchNaverShop(query: String){
+
+
+    fun searchNaverShop(swipeRefreshLayout: SwipeRefreshLayout, query: String){
         if(searchJob.isCompleted) {
-            _searchNaverShop(query, _naverShopListPage.value!!)
+            _searchNaverShop(swipeRefreshLayout, query, _naverShopListPage.value!!)
         }
     }
 
