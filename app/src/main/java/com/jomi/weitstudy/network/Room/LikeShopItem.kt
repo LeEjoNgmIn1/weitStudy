@@ -1,4 +1,4 @@
-package com.jomi.weitstudy.network.model
+package com.jomi.weitstudy.network.Room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,6 +7,12 @@ import androidx.room.PrimaryKey
 data class LikeShopItem(
     @PrimaryKey(autoGenerate = false)
     var productId: String,
-    var isLike : Boolean = false,
-    var numLike : Int = 0
+    val image: String,
+    val mallName: String,
+    val title: String,
+    val lprice: String,
+
+
+    var isLike : Boolean,
+    var numLike : Int
 )

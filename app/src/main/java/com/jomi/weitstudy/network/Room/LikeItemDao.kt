@@ -1,11 +1,15 @@
 package com.jomi.weitstudy.network.Room
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
-import com.jomi.weitstudy.network.model.LikeShopItem
+import androidx.room.Query
 
 @Dao
 interface LikeItemDao {
     @Insert
-    fun insert(likeShopItem : LikeShopItem)
+    suspend fun addLikeItem(likeShopItem : LikeShopItem)
+
+    @Query("SELECT * FROM like_shop_Item")
+    fun readAllLikeItem() : LiveData<List<LikeShopItem>>
 }

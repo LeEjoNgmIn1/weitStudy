@@ -43,6 +43,7 @@ class NaverShopViewHolder(private val binding: ItemShopBinding): RecyclerView.Vi
         Glide.with(binding.ivShopItemList)
             .load(data.image)
             .into(binding.ivShopItemList)
+
     }
 }
 
