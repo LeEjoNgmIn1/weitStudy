@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "like_shop_Item")
 data class LikeShopItem(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     var productId: String,
     var isLike : Boolean = false,
     var numLike : Int = 0

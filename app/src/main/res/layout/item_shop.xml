@@ -68,7 +68,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_shop_item_list"
-            android:background="@drawable/heart_empty"
+            android:background="@drawable/toggle_heart"
             android:textOn=""
             android:textOff=""
             />
