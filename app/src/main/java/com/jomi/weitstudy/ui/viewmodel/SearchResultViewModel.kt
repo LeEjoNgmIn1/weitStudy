@@ -1,15 +1,12 @@
 package com.jomi.weitstudy.ui.viewmodel
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.jomi.weitstudy.R
 import com.jomi.weitstudy.network.NaverShopRepository
+import com.jomi.weitstudy.network.Room.LikeItemRepository
 import com.jomi.weitstudy.network.model.NaverShopItem
 import com.jomi.weitstudy.others.REFRESH_STATE
 import com.skydoves.sandwich.onError
@@ -21,7 +18,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchResultViewModel @Inject constructor(private val naverShopRepository: NaverShopRepository) : ViewModel() {
+class SearchResultViewModel @Inject constructor(
+    private val naverShopRepository: NaverShopRepository,
+    private val likeItemRepository: LikeItemRepository) : ViewModel() {
 
     private var _naverShopResult : MutableLiveData<List<NaverShopItem>> = MutableLiveData()
     val naverShopResult : LiveData<List<NaverShopItem>> get() = _naverShopResult
@@ -30,9 +29,7 @@ class SearchResultViewModel @Inject constructor(private val naverShopRepository:
     val naverShopListPage : LiveData<Int> get() = _naverShopListPage
 
     private var _naverShopApiResult : MutableList<NaverShopItem> = mutableListOf()
-
-    private var searchResultRefreshState : REFRESH_STATE = REFRESH_STATE.FALSE
-
+    
     private var searchJob: Job = Job().apply {
         cancel()
     }
@@ -48,6 +45,8 @@ class SearchResultViewModel @Inject constructor(private val naverShopRepository:
             response.onSuccess {
                 val temp = data.items
                 temp?.let{_naverShopApiResult.addAll(it)}
+
+
 
                 _naverShopResult.postValue(_naverShopApiResult.toList())
                 _naverShopListPage.value = _naverShopListPage.value?.plus(PAGE_UP)
@@ -76,3 +75,4 @@ class SearchResultViewModel @Inject constructor(private val naverShopRepository:
         const val PAGE_UP = 1
     }
 }
+

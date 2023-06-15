@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.widget.Toast
 import com.jomi.weitstudy.databinding.ActivityMainBinding
 import com.jomi.weitstudy.others.onMyTextChanged
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
