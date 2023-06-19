@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jomi.weitstudy.data.model.LikeItems
 import com.jomi.weitstudy.databinding.ActivitySearchResultBinding
 import com.jomi.weitstudy.ui.viewmodel.SearchResultViewModel
 import com.jomi.weitstudy.ui.adapter.ShopAdapter
@@ -18,7 +19,12 @@ class SearchResultActivity : AppCompatActivity() {
 
     lateinit var binding: ActivitySearchResultBinding
 
-    private val myRecyclerViewAdapter: ShopAdapter = ShopAdapter()
+    private val myRecyclerViewAdapter: ShopAdapter = ShopAdapter({
+        itemId : String -> viewModel.isLike(itemId)
+    },{
+        likeItems: LikeItems, isCheck: Boolean -> viewModel.updateLikeItem(likeItems, isCheck)
+    })
+
     private val viewModel: SearchResultViewModel by lazy {
         ViewModelProvider(this).get(SearchResultViewModel::class.java)
     }

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jomi.weitstudy.data.network.NaverShopRepository
 import com.jomi.weitstudy.data.Room.LikeItemRepository
+import com.jomi.weitstudy.data.model.LikeItems
 import com.jomi.weitstudy.data.model.NaverShopItem
 import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onException
@@ -22,35 +23,51 @@ class SearchResultViewModel @Inject constructor(
     private val naverShopRepository: NaverShopRepository,
     private val likeItemRepository: LikeItemRepository) : ViewModel() {
 
-    private var _naverShopResult : MutableLiveData<List<NaverShopItem>> = MutableLiveData()
-    val naverShopResult : LiveData<List<NaverShopItem>> get() = _naverShopResult
+    private var _naverShopResult : MutableLiveData<List<LikeItems>> = MutableLiveData()
+    val naverShopResult : LiveData<List<LikeItems>> get() = _naverShopResult
 
-    private var _naverShopListPage : MutableLiveData<Int> = MutableLiveData(0)
-    val naverShopListPage : LiveData<Int> get() = _naverShopListPage
+    private var _ListPage : MutableLiveData<Int> = MutableLiveData(0)
+    val Page : LiveData<Int> get() = _ListPage
 
-    private var _naverShopApiResult : MutableList<NaverShopItem> = mutableListOf()
+    private var _naverShopApiResult : MutableList<LikeItems> = mutableListOf()
+
+    private var _naverShopAllId : MutableList<String> = mutableListOf()
     
     private var searchJob: Job = Job().apply {
         cancel()
     }
 
+    init {
+        viewModelScope.launch {
+            _naverShopAllId.addAll(likeItemRepository.getAllLikeId())
+        }
+    }
 
 
-    private fun _searchNaverShop(swipeRefreshLayout: SwipeRefreshLayout, query: String = "", page: Int = 0){
+
+    private fun _searchNaverShop(query: String, page: Int = 0){
         searchJob = viewModelScope.launch {
             val response = naverShopRepository.naverShopSearch(query, PAGE_SIZE, page * PAGE_SIZE + 1)
             if(page == 0){
                 _naverShopApiResult.clear()
-
-                if(swipeRefreshLayout.isRefreshing) {swipeRefreshLayout.isRefreshing = false}
             }
 
             response.onSuccess {
-                val temp = data.items
-                temp?.let{_naverShopApiResult.addAll(it)}
+
+                for(i in 0 until PAGE_SIZE){
+                    val temp = LikeItems(
+                        data.items?.get(i)!!.productId,
+                        data.items?.get(i)!!.lprice,
+                        data.items?.get(i)!!.mallName,
+                        data.items?.get(i)!!.image,
+                        data.items?.get(i)!!.title
+                    )
+                    _naverShopApiResult.add(temp)
+                }
 
                 _naverShopResult.postValue(_naverShopApiResult.toList())
-                _naverShopListPage.value = _naverShopListPage.value?.plus(PAGE_UP)
+                _ListPage.value?.plus(PAGE_UP)
+
             }.onError {
                 Log.d("jomi", "네트워크로 부터 에러응답을 내려받음")
             }.onException {
@@ -61,16 +78,27 @@ class SearchResultViewModel @Inject constructor(
     }
 
 
-
-    fun searchNaverShop(swipeRefreshLayout: SwipeRefreshLayout, query: String){
+    fun searchNaverShop(query: String){
         if(searchJob.isCompleted) {
-            _searchNaverShop(swipeRefreshLayout, query, _naverShopListPage.value!!)
+            _searchNaverShop(query)
         }
     }
 
-    fun pageReset(){
-        _naverShopListPage.value = 0
+    fun updateLikeItem(likeItems: LikeItems, isCheck: Boolean){
+        viewModelScope.launch {
+            if(isCheck){
+                likeItemRepository.addLikeItem(likeItems)
+            } else {
+                likeItemRepository.deleteLikeItem(likeItems)
+            }
+        }
     }
+
+    fun isLike(itemId: String) : Boolean {
+        return _naverShopAllId.contains(itemId)
+    }
+
+
 
 
     companion object{
