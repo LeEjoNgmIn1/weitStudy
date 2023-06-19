@@ -6,7 +6,3 @@ object Constants {
     const val CLIENT_SECRET: String = "omjUXekf98"
 }
 
-enum class REFRESH_STATE{
-    TRUE,
-    FALSE
-}

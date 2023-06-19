@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.jomi.weitstudy.network.NaverShopRepository
+import com.jomi.weitstudy.network.naverShopRepository.NaverShopRepository
 import com.jomi.weitstudy.network.Room.LikeItemRepository
 import com.jomi.weitstudy.network.model.NaverShopItem
 import com.skydoves.sandwich.onError

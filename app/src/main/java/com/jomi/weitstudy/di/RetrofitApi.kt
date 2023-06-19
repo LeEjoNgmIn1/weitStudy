@@ -1,13 +1,18 @@
 package com.jomi.weitstudy.di
 
+import android.content.Context
+import androidx.room.Room
 import com.jomi.weitstudy.BuildConfig
-import com.jomi.weitstudy.network.NaverShopRepository
-import com.jomi.weitstudy.network.NaverShopService
+import com.jomi.weitstudy.network.naverShopRepository.NaverShopRepository
+import com.jomi.weitstudy.network.naverShopRepository.NaverShopService
+import com.jomi.weitstudy.network.Room.LikeItemDao
+import com.jomi.weitstudy.network.Room.LikeItemDatabase
 import com.jomi.weitstudy.others.Constants
 import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -30,7 +35,7 @@ import javax.inject.Singleton
  */
 @Module
 @InstallIn(SingletonComponent::class)
-object RetrofitApi {
+object Modules {
 
     private const val BASE_URL = Constants.BASE_URL
 
@@ -66,4 +71,17 @@ object RetrofitApi {
     @Provides
     @Singleton
     fun provideNaverShopRepository(naverShopService: NaverShopService) = NaverShopRepository(naverShopService)
+
+    @Provides
+    @Singleton
+    fun provideLikeItemDataBase(@ApplicationContext context: Context) : LikeItemDatabase =
+        Room.databaseBuilder(
+            context,
+            LikeItemDatabase::class.java,
+            "like_item_table"
+        ).build()
+
+
+    @Provides
+    fun provideLikeItemDao(likeItemdatabase: LikeItemDatabase) : LikeItemDao = likeItemdatabase.likeItemDao()
 }

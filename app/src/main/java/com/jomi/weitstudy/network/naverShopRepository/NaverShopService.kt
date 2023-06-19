@@ -1,4 +1,4 @@
-package com.jomi.weitstudy.network
+package com.jomi.weitstudy.network.naverShopRepository
 
 import com.jomi.weitstudy.network.model.NaverShopResponse
 import com.jomi.weitstudy.others.Constants.CLIENT_ID

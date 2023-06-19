@@ -12,6 +12,5 @@ data class LikeItem(
     val mallName: String,
     val title: String,
 
-    var isLike : Boolean = false,
     var numLike : Int = 0
 )
