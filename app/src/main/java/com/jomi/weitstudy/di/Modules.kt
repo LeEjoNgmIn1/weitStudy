@@ -3,10 +3,10 @@ package com.jomi.weitstudy.di
 import android.content.Context
 import androidx.room.Room
 import com.jomi.weitstudy.BuildConfig
-import com.jomi.weitstudy.network.naverShopRepository.NaverShopRepository
-import com.jomi.weitstudy.network.naverShopRepository.NaverShopService
-import com.jomi.weitstudy.network.Room.LikeItemDao
-import com.jomi.weitstudy.network.Room.LikeItemDatabase
+import com.jomi.weitstudy.data.network.NaverShopRepository
+import com.jomi.weitstudy.data.network.NaverShopService
+import com.jomi.weitstudy.data.Room.LikeItemDao
+import com.jomi.weitstudy.data.Room.LikeItemDatabase
 import com.jomi.weitstudy.others.Constants
 import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import dagger.Module

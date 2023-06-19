@@ -1,6 +1,5 @@
-package com.jomi.weitstudy.network.model
+package com.jomi.weitstudy.data.model
 
-import com.jomi.weitstudy.network.model.NaverShopItem
 import com.squareup.moshi.Json
 
 data class NaverShopResponse(

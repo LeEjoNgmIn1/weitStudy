@@ -1,8 +1,8 @@
-package com.jomi.weitstudy.network.Room
+package com.jomi.weitstudy.data.Room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.jomi.weitstudy.network.Room.LikeItem
+import com.jomi.weitstudy.data.model.LikeItem
 
 @Dao
 interface LikeItemDao {

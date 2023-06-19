@@ -1,11 +1,9 @@
-package com.jomi.weitstudy.network.naverShopRepository
+package com.jomi.weitstudy.data.network
 
-import com.jomi.weitstudy.network.model.NaverShopResponse
+import com.jomi.weitstudy.data.model.NaverShopResponse
 import com.jomi.weitstudy.others.Constants.CLIENT_ID
 import com.jomi.weitstudy.others.Constants.CLIENT_SECRET
 import com.skydoves.sandwich.ApiResponse
-import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query

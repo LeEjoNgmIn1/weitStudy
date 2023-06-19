@@ -6,9 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.jomi.weitstudy.R
 import com.jomi.weitstudy.databinding.ItemShopBinding
-import com.jomi.weitstudy.network.model.NaverShopItem
+import com.jomi.weitstudy.data.model.NaverShopItem
 
 class ShopAdapter: ListAdapter<NaverShopItem, NaverShopViewHolder>(DiffCallback) {
 

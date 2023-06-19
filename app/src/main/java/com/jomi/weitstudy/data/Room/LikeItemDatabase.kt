@@ -1,8 +1,8 @@
-package com.jomi.weitstudy.network.Room
+package com.jomi.weitstudy.data.Room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import com.jomi.weitstudy.data.model.LikeItem
 
 @Database(
     entities = [LikeItem::class],

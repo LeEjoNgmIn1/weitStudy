@@ -1,6 +1,7 @@
-package com.jomi.weitstudy.network.Room
+package com.jomi.weitstudy.data.Room
 
 import androidx.lifecycle.LiveData
+import com.jomi.weitstudy.data.model.LikeItem
 
 
 interface LikeItemRepository{

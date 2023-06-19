@@ -1,7 +1,7 @@
-package com.jomi.weitstudy.network.naverShopRepository
+package com.jomi.weitstudy.data.network
 
 
-import com.jomi.weitstudy.network.model.NaverShopResponse
+import com.jomi.weitstudy.data.model.NaverShopResponse
 import com.skydoves.sandwich.ApiResponse
 import javax.inject.Inject
 

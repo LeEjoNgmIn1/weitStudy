@@ -1,4 +1,4 @@
-package com.jomi.weitstudy.network.model
+package com.jomi.weitstudy.data.model
 
 import androidx.room.Entity
 import com.squareup.moshi.Json

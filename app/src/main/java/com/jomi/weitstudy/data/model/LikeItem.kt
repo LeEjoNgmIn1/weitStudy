@@ -1,6 +1,5 @@
-package com.jomi.weitstudy.network.Room
+package com.jomi.weitstudy.data.model
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
