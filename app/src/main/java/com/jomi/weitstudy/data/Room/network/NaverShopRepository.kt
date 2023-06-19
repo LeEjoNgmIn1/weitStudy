@@ -1,4 +1,4 @@
-package com.jomi.weitstudy.data.network
+package com.jomi.weitstudy.data.Room.network
 
 
 import com.jomi.weitstudy.data.model.NaverShopResponse

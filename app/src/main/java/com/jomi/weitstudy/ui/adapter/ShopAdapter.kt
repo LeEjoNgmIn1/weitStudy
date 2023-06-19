@@ -8,11 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jomi.weitstudy.data.model.LikeItems
 import com.jomi.weitstudy.databinding.ItemShopBinding
-import com.jomi.weitstudy.data.model.NaverShopItem
 
 class ShopAdapter(private val isFavorite: (String) -> Boolean,
                   private val toggleclick: (LikeItems, Boolean) -> Unit
-): ListAdapter<NaverShopItem, NaverShopViewHolder>(DiffCallback) {
+): ListAdapter<LikeItems, NaverShopViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NaverShopViewHolder {
         return NaverShopViewHolder(ItemShopBinding.inflate(LayoutInflater.from(parent.context),parent, false), isFavorite, toggleclick)
@@ -24,12 +23,12 @@ class ShopAdapter(private val isFavorite: (String) -> Boolean,
 
 
     companion object{
-        private val DiffCallback = object: DiffUtil.ItemCallback<NaverShopItem>() {
-            override fun areItemsTheSame(oldItem: NaverShopItem, newItem: NaverShopItem): Boolean {
+        private val DiffCallback = object: DiffUtil.ItemCallback<LikeItems>() {
+            override fun areItemsTheSame(oldItem: LikeItems, newItem: LikeItems): Boolean {
                 return oldItem.productId == newItem.productId
             }
 
-            override fun areContentsTheSame(oldItem: NaverShopItem, newItem: NaverShopItem): Boolean {
+            override fun areContentsTheSame(oldItem: LikeItems, newItem: LikeItems): Boolean {
                 return oldItem == newItem
             }
         }
@@ -40,7 +39,7 @@ class NaverShopViewHolder(private val binding: ItemShopBinding,
                           private val isFavorite: (String) -> Boolean,
                           private val toggleclick: (LikeItems, Boolean) -> Unit
 ): RecyclerView.ViewHolder(binding.root) {
-    fun bind(data: NaverShopItem){
+    fun bind(data: LikeItems){
         binding.tvShopTitle.text = data.title
         binding.tvShopMallName.text = data.mallName
         binding.tvShopLprice.text = data.lprice

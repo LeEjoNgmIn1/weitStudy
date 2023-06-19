@@ -45,7 +45,7 @@ class SearchResultActivity : AppCompatActivity() {
 
         setUpNaverShopRecyclerView()
         pageUpNaverShopViewModel(userQuery)
-        onRefresh()
+//        onRefresh()
     }
 
     private fun setUpNaverShopRecyclerView() {
@@ -61,7 +61,7 @@ class SearchResultActivity : AppCompatActivity() {
 
                 if (lastVisibleItemPosition == itemTotalCount) {
                     pageUpNaverShopViewModel(userQuery)
-                    Toast.makeText(this@SearchResultActivity, "page : ${viewModel.naverShopListPage.value}" , Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SearchResultActivity, "page : ${viewModel.Page.value}" , Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -76,13 +76,13 @@ class SearchResultActivity : AppCompatActivity() {
     }
 
     private fun pageUpNaverShopViewModel(query: String) {
-        viewModel.searchNaverShop(binding.refreshLayout, query)
+        viewModel.searchNaverShop(query)
     }
 
-    fun onRefresh(){
-        binding.refreshLayout.setOnRefreshListener{
-            viewModel.pageReset()
-        }
-    }
+//    fun onRefresh(){
+//        binding.refreshLayout.setOnRefreshListener{
+//            viewModel.pageReset()
+//        }
+//    }
 
 }
