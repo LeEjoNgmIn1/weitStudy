@@ -6,10 +6,11 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "like_item_table")
 data class LikeItems(
     @PrimaryKey(autoGenerate = false)
-    var productId: String,
+    val productId: String,
     val lprice: String,
     val mallName: String,
+    val image: String,
     val title: String,
 
-    var numLike : Int = 0
+//    var numLike : Int = 0
 )

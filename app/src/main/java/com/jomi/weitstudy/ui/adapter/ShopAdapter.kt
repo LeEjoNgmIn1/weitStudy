@@ -6,13 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jomi.weitstudy.data.model.LikeItems
 import com.jomi.weitstudy.databinding.ItemShopBinding
 import com.jomi.weitstudy.data.model.NaverShopItem
 
-class ShopAdapter: ListAdapter<NaverShopItem, NaverShopViewHolder>(DiffCallback) {
+class ShopAdapter(private val isFavorite: (String) -> Boolean,
+                  private val toggleclick: (LikeItems, Boolean) -> Unit
+): ListAdapter<NaverShopItem, NaverShopViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NaverShopViewHolder {
-        return NaverShopViewHolder(ItemShopBinding.inflate(LayoutInflater.from(parent.context),parent, false))
+        return NaverShopViewHolder(ItemShopBinding.inflate(LayoutInflater.from(parent.context),parent, false), isFavorite, toggleclick)
     }
 
     override fun onBindViewHolder(holder: NaverShopViewHolder, position: Int) {
@@ -33,11 +36,28 @@ class ShopAdapter: ListAdapter<NaverShopItem, NaverShopViewHolder>(DiffCallback)
     }
 }
 
-class NaverShopViewHolder(private val binding: ItemShopBinding): RecyclerView.ViewHolder(binding.root) {
+class NaverShopViewHolder(private val binding: ItemShopBinding,
+                          private val isFavorite: (String) -> Boolean,
+                          private val toggleclick: (LikeItems, Boolean) -> Unit
+): RecyclerView.ViewHolder(binding.root) {
     fun bind(data: NaverShopItem){
         binding.tvShopTitle.text = data.title
         binding.tvShopMallName.text = data.mallName
         binding.tvShopLprice.text = data.lprice
+        binding.tbLike.isChecked = isFavorite(data.productId)
+
+        binding.tbLike.setOnClickListener {
+            toggleclick(
+                LikeItems(
+                    data.productId,
+                    data.lprice,
+                    data.mallName,
+                    data.image,
+                    data.title,
+                ),
+            binding.tbLike.isChecked
+            )
+        }
 
         Glide.with(binding.ivShopItemList)
             .load(data.image)
