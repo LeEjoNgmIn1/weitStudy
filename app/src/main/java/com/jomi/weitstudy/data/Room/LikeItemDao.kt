@@ -13,13 +13,10 @@ interface LikeItemDao {
     suspend fun deleteLikeItem(likeItem: LikeItem)
 
     @Query("SELECT * FROM like_item_table")
-    suspend fun getLikeItem() : LiveData<List<LikeItem>>
+    suspend fun getAllLikeItemData() : List<LikeItem>
 
     @Query("SELECT productId FROM like_item_table")
-    suspend fun getLikeItemId() : List<String>
-
-    @Query("SELECT * FROM like_item_table WHERE productId=id")
-    suspend fun isLikeItem(id: String) : LikeItem?
+    suspend fun getAllLikeId() : List<String>
 }
 
 //    OnConflictStrategy.ABORT	충돌이 발생할 경우 처리 중단
@@ -27,3 +24,4 @@ interface LikeItemDao {
 //    OnConflictStrategy.IGNORE	충돌이 발생할 경우 무시
 //    OnConflictStrategy.REPLACE	충돌이 발생할 경우 덮어쓰기
 //    OnConflictStrategy.ROLLBACK	충돌이 발생할 경우 이전으로 되돌리기
+
