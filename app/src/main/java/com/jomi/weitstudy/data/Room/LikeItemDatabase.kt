@@ -6,7 +6,7 @@ import com.jomi.weitstudy.data.model.LikeItems
 
 @Database(
     entities = [LikeItems::class],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
 

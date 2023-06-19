@@ -50,8 +50,8 @@ class NaverShopViewHolder(private val binding: ItemShopBinding,
                 LikeItems(
                     data.productId,
                     data.lprice,
-                    data.mallName,
                     data.image,
+                    data.mallName,
                     data.title,
                 ),
             binding.tbLike.isChecked

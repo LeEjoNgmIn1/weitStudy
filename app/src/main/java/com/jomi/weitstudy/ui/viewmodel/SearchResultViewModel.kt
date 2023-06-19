@@ -5,11 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.jomi.weitstudy.data.Room.network.NaverShopRepository
+import com.jomi.weitstudy.data.network.NaverShopRepository
 import com.jomi.weitstudy.data.Room.LikeItemRepository
 import com.jomi.weitstudy.data.model.LikeItems
-import com.jomi.weitstudy.data.model.NaverShopItem
 import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.onSuccess
@@ -45,27 +43,23 @@ class SearchResultViewModel @Inject constructor(
 
 
 
-    private fun _searchNaverShop(query: String, page: Int = 0){
+    private fun _searchNaverShop(query: String, page: Int){
         searchJob = viewModelScope.launch {
             val response = naverShopRepository.naverShopSearch(query, PAGE_SIZE, page * PAGE_SIZE + 1)
-            if(page == 0){
-                _naverShopApiResult.clear()
-            }
 
             response.onSuccess {
-
-                for(i in 0 until PAGE_SIZE){
+                for (i in 0 until PAGE_SIZE){
                     val temp = LikeItems(
                         data.items?.get(i)!!.productId,
                         data.items?.get(i)!!.lprice,
                         data.items?.get(i)!!.mallName,
                         data.items?.get(i)!!.image,
-                        data.items?.get(i)!!.title
+                        data.items?.get(i)!!.title,
                     )
                     _naverShopApiResult.add(temp)
                 }
-
                 _naverShopResult.postValue(_naverShopApiResult.toList())
+
                 _ListPage.value?.plus(PAGE_UP)
 
             }.onError {
@@ -80,7 +74,7 @@ class SearchResultViewModel @Inject constructor(
 
     fun searchNaverShop(query: String){
         if(searchJob.isCompleted) {
-            _searchNaverShop(query)
+            _searchNaverShop(query, _ListPage.value!!)
         }
     }
 
@@ -97,8 +91,6 @@ class SearchResultViewModel @Inject constructor(
     fun isLike(itemId: String) : Boolean {
         return _naverShopAllId.contains(itemId)
     }
-
-
 
 
     companion object{

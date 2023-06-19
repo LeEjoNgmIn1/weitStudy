@@ -10,7 +10,7 @@ data class LikeItems(
     val lprice: String,
     val mallName: String,
     val image: String,
-    val title: String,
+    val title: String
 
 //    var numLike : Int = 0
 )

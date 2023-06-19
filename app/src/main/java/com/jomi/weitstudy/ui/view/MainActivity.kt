@@ -35,16 +35,21 @@ class MainActivity : AppCompatActivity() {
 
         // 검색 버튼 클릭스
         binding.btnItemSearch.setOnClickListener {
-            val intent : Intent = Intent(this, SearchResultActivity::class.java)
+            val intent1 = Intent(this, SearchResultActivity::class.java)
             inputQuery = binding.etMainSearch.text.toString()
 
             if (inputQuery.isEmpty()){
                 Toast.makeText(this, "검색어를 입력하세요", Toast.LENGTH_SHORT).show()
             } else {
-                intent.putExtra("inputQuery", inputQuery)
-                startActivity(intent)
+                intent1.putExtra("inputQuery", inputQuery)
+                startActivity(intent1)
             }
 
+        }
+
+        binding.btnGoLike.setOnClickListener {
+            val intent2 = Intent(this, LikeItemActivity::class.java)
+            startActivity(intent2)
         }
     }
 }
