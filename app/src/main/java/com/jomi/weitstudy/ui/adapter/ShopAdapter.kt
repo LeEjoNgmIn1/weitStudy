@@ -50,13 +50,14 @@ class NaverShopViewHolder(private val binding: ItemShopBinding,
                 LikeItems(
                     data.productId,
                     data.lprice,
-                    data.image,
                     data.mallName,
+                    data.image,
                     data.title,
                 ),
             binding.tbLike.isChecked
             )
         }
+
 
         Glide.with(binding.ivShopItemList)
             .load(data.image)

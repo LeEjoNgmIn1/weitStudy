@@ -15,16 +15,23 @@ class LikeItemViewModel @Inject constructor(private val likeItemRepository: Like
     private var _likeItemsData : MutableLiveData<List<LikeItems>> = MutableLiveData()
     val likeItemData : LiveData<List<LikeItems>> get() = _likeItemsData
 
-    private val _currentLikeItemData : MutableList<List<LikeItems>> = mutableListOf()
+    private val _currentLikeItemData : MutableList<LikeItems> = mutableListOf()
 
     private var _naverShopAllId : MutableList<String> = mutableListOf()
 
     init {
         viewModelScope.launch {
             _naverShopAllId.addAll(likeItemRepository.getAllLikeId())
-
-            _likeItemsData.postValue(likeItemRepository.getAllLikeItemData())
         }
+
+        viewModelScope.launch {
+            for(i in 0 until likeItemRepository.getAllLikeItemData().size){
+                val temp = likeItemRepository.getAllLikeItemData()[i]
+                _currentLikeItemData.add(temp)
+            }
+            _likeItemsData.postValue(_currentLikeItemData.toList())
+        }
+
     }
 
     fun updateLikeItem(likeItems: LikeItems, isCheck: Boolean){
@@ -34,6 +41,7 @@ class LikeItemViewModel @Inject constructor(private val likeItemRepository: Like
             } else {
                 likeItemRepository.deleteLikeItem(likeItems)
             }
+
         }
     }
 

@@ -5,15 +5,10 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.jomi.weitstudy.R
 import com.jomi.weitstudy.data.model.LikeItems
 import com.jomi.weitstudy.databinding.ActivityLikeItemBinding
-import com.jomi.weitstudy.databinding.ActivitySearchResultBinding
 import com.jomi.weitstudy.ui.adapter.ShopAdapter
 import com.jomi.weitstudy.ui.viewmodel.LikeItemViewModel
-import com.jomi.weitstudy.ui.viewmodel.SearchResultViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,19 +35,22 @@ class LikeItemActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.topAppBar)
 
-//        setUpLikeItemRecycerlView()
+        setUpLikeItemRecycerlView()
 
     }
 
-//    private fun setUpLikeItemRecycerlView(){
-//        viewModel.likeItemData.observe(this){
-//            if (it != null){
-//                likeRecyclerViewAdapter.submitList(it)
-//            } else {
-//                Toast.makeText(this, "error in getting data", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
+    private fun setUpLikeItemRecycerlView(){
+        binding.rvLikeItem.layoutManager = GridLayoutManager(this, 2)
+        binding.rvLikeItem.adapter = likeRecyclerViewAdapter
+
+        viewModel.likeItemData.observe(this){
+            if (it != null){
+                likeRecyclerViewAdapter.submitList(it)
+            } else {
+                Toast.makeText(this, "error in getting data", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
 }
 

@@ -46,8 +46,8 @@ class SearchResultViewModel @Inject constructor(
     private fun _searchNaverShop(query: String, page: Int){
         searchJob = viewModelScope.launch {
             val response = naverShopRepository.naverShopSearch(query, PAGE_SIZE, page * PAGE_SIZE + 1)
-
             response.onSuccess {
+
                 for (i in 0 until PAGE_SIZE){
                     val temp = LikeItems(
                         data.items?.get(i)!!.productId,
@@ -85,6 +85,8 @@ class SearchResultViewModel @Inject constructor(
             } else {
                 likeItemRepository.deleteLikeItem(likeItems)
             }
+            _naverShopAllId.clear()
+            _naverShopAllId.addAll(likeItemRepository.getAllLikeId())
         }
     }
 
