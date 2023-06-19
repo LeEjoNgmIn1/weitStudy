@@ -1,18 +1,32 @@
 package com.jomi.weitstudy.data.Room
 
-import androidx.lifecycle.LiveData
-import com.jomi.weitstudy.data.model.LikeItem
+import com.jomi.weitstudy.data.model.LikeItems
+import com.jomi.weitstudy.data.model.NaverShopResponse
+import com.skydoves.sandwich.ApiResponse
+import javax.inject.Inject
 
+class LikeItemRepository @Inject constructor(
+    private val likeItemDao: LikeItemDao
+){
+    suspend fun addLikeItem(likeItems: LikeItems){
+        likeItemDao.addLikeItem(likeItems)
+    }
 
-interface LikeItemRepository{
+    suspend fun deleteLikeItem(likeItems: LikeItems){
+        likeItemDao.deleteLikeItem(likeItems)
+    }
 
-    suspend fun addLikeItem(likeItem: LikeItem)
+    suspend fun getAllLikeId() : List<String>{
+        return likeItemDao.getAllLikeId()
+    }
 
-    suspend fun deleteLikeItem(likeItem: LikeItem)
+    suspend fun getAllLikeItemData(): List<LikeItems>{
+        return likeItemDao.getAllLikeItemData()
+    }
 
-    suspend fun getLikeItem(): LiveData<List<LikeItem>>
-
-    suspend fun getLikeItemId() : List<String>
-
-    suspend fun isLikeItem(productId : String): Boolean
 }
+
+
+
+
+
