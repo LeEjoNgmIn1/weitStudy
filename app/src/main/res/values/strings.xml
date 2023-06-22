@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">weItStudy</string>
+    <string name="x_naver_client_id">q9cgkmAmZwHdc_uSyAaf</string>
+    <string name="x_naver_client_secret">3jBNB_AVJo</string>
+    <string name="Refresh">새로고침 완료!</string>
+    <string name="item_search_hint">상품 검색</string>
+    <string name="item_search_helper">검색어를 입력해 주세요</string>
 </resources>
